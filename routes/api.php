@@ -19,4 +19,4 @@ use App\Http\Controllers;
 //     return $request->user();
 // });
 
-Route::get('/user', [Controllers\UserController::class, 'index']);
+Route::middleware('json.response')->get('/user', [Controllers\UserController::class, 'index']);
