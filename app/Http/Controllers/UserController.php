@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
@@ -14,9 +15,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::get();
+        $users = User::all();
 
         return $users;
+    }
+
+    public function indexCached()
+    {
+        $user = Cache::remember('users_cached_' . auth()->id, 60*60*10, function() {
+            return User::all();
+        });
+
+        return $user;
     }
 
     /**
