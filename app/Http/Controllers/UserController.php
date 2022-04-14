@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function indexCached()
     {
-        $user = Cache::remember('users_cached_' . auth()->id, 60*60*10, function() {
+        $user = Cache::remember('users_cached', 60*60*10, function() {
             return User::all();
         });
 
