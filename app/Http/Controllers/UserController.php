@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate();
 
         return $users;
     }
@@ -23,7 +23,7 @@ class UserController extends Controller
     public function indexCached()
     {
         $user = Cache::remember('users_cached', 60*60*10, function() {
-            return User::all();
+            return User::paginate();
         });
 
         return $user;
